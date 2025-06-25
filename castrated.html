@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/castrated.css">
+</head>
+<body>
+        <header class="header-component">
+      <div class="header-container">
+        <p class="title-header">WorkShopping</p>
+      </div>
+    </header>
+
+      <main class="main-component">
+      <div class="main-container">
+        <div class="title-main">
+          <h2>Sistema de Produtos</h2>
+          <p class="description-main">
+            Cadastre e gerencie seus produtos de forma simples
+          </p>
+        </div>
+      </div>
+      <div class="btn-main">
+      <button class="listing-btn">
+        <a href="index.html" class="listing-link">
+        <img src="assets/lista-de-reproducao.png" alt="imagem de listagem">
+        Listagem</button>
+          </a>
+      <button class="castrated-btn">
+       <a href="castrated.html" class="castrated-link">
+        Cadastro de produto
+        </a>
+      </button>
+    </div>
+    
+    <form id="form-produto">
+        <h3>Cadastro do produto</h3>
+        <hr>
+        <div class="form-group">
+            <label for="productName" class="label-form">Nome do produto:</label>
+            <input type="text" id="productName" name="productName" placeholder="Cadastre um produto" required>
+
+            <label for="productDescription" class="label-form">Descrição do produto</label>
+            <input type="text" id="productDescription" name="productDescription" placeholder="Descrição do produto" required>
+            
+            <label for="productPrice" class="label-form">Valor do produto (R$)</label> 
+           
+            <input type="number" id="productPrice" name="productPrice" placeholder="Valor do produto" required>
+            
+            <!-- <label for="produtoDisponivel"> Produto disponível:</label>
+            <select id="produtoDisponivel" name="produtoDisponivel" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option> -->
+               
+        </div>
+        <button class="castrated-btn" type="submit">Cadastre</button>
+    </form>
+    
+    </main>
+    <footer class="footer-component">
+      <p>Qualificação de candidato Estágio de desenvolvimento</p>
+    </footer>
+</body>
+<script src="js/main.js"></script>
+</html>
