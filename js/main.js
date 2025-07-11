@@ -1,60 +1,63 @@
-const { describe } = require("node:test");
-const { format } = require("path");
+document.addEventListener("DOMContentLoaded", () => {
+ 
+  const produtos = JSON.parse(localStorage.getItem("produtos")) || [];
 
-let produtos = [];
+  const salvarProdutos = () => {
+    localStorage.setItem("produtos", JSON.stringify(produtos));
+  };
 
-class Produto {
-  constructor(nome, descricao, preco, disponivel) {
-    this.nome = nome;
-    this.descricao = descricao;
-    this.preco = preco;
-    this.disponivel = disponivel;
+  const tabelaProdutosBody = document.querySelector("#tabela-produtos tbody");
+  const formularioProduto = document.getElementById("form-produto");
+
+
+  const atualizarTabela = () => {
+
+    tabelaProdutosBody.innerHTML = "";
+
+    const produtosOrdenados = [...produtos].sort((a, b) => a.preco - b.preco);
+
+    produtosOrdenados.forEach((produto) => {
+      const linha = document.createElement("tr");
+      const precoFormatado = produto.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+   
+      linha.innerHTML = `
+        <td>${produto.nome}</td>
+        <td>${produto.descricao || "Sem descrição"}</td>
+        <td>${precoFormatado}</td>
+        <td>${produto.disponivel}</td>
+      `;
+      tabelaProdutosBody.appendChild(linha);
+    });
+  };
+
+  
+  if (formularioProduto) {
+    formularioProduto.addEventListener("submit", (event) => {
+      event.preventDefault(); 
+
+      const nome = document.getElementById("productName").value;
+      const descricao = document.getElementById("productDescription").value; 
+      const preco = parseFloat(document.getElementById("productPrice").value);
+      
+      
+      produtos.push({
+        nome: nome,
+        descricao: descricao,
+        preco: preco,
+        disponivel: "Sim", 
+      });
+
+    
+      salvarProdutos(); 
+
+      atualizarTabela();
+
+      alert("Produto adicionado com sucesso!");
+      formularioProduto.reset();
+    });
   }
 
-   adicionarProduto() {
-    
-      document
-        .getElementById("form-produto")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
 
-          const nome = document.getElementById("productName").value;
-          const descricao = document.getElementById("roductDescription").value;
-          const preco = document.getElementById("productPrice").value;
-          const disponivel = document.getElementById("productAvailable").value;
-
-     
-          produtos.push({
-            nome: nome,
-            descricao: descricao,
-            preco: parseFloat(preco),
-            disponivel: "sim"
-          });
-
-          document.getElementById("form-produto").reset();
-
-          exibirProdutos();
-        });
-    }
-
-    exibirProdutos() {
-        const tabelaProdutos = document.getElementById("tabelaProdutos").getElementsByTagName("tbody")[0];
-        tabelaProdutos.innerHTML = "";
-        
-        produtos.forEach( produtos => {
-            const linha = document.createElement("tr");
-            linha.innerHTML = `
-            <td>${produtos.nome}</td>
-            <td>${produtos.descricao}</td>
-            <td>${produtos.preco.toFixed(2)}</td>
-            <td>${produtos.disponivel}</td>
-            `;
-            tabelaProdutos.appendChild(linha);
-        });
-    }
-
-    ordenarProdutos() {
-        produtos.sort((a, b) => a.valor - b.valor);
-        exibirProdutos();
-    }
-}
+  atualizarTabela();
+});
